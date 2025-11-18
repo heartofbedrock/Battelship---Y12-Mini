@@ -1,0 +1,18 @@
+[Unit]
+Description=Battleship Node App
+After=network.target
+
+[Service]
+Environment=PORT=4300
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/battleship
+ExecStart=/usr/bin/node /var/www/battleship/server.js
+Restart=on-failure
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=battleship
+
+[Install]
+WantedBy=multi-user.target
