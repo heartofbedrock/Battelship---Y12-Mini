@@ -1,0 +1,16 @@
+body{font-family:Arial,Helvetica,sans-serif;background:#f3f6f9;color:#222;margin:0;padding:20px}
+#app{max-width:1000px;margin:0 auto}
+.hidden{display:none}
+.row{display:flex;gap:10px;margin-top:10px}
+label{display:block;margin:8px 0}
+input{padding:6px;font-size:14px}
+button{padding:8px 12px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(10,32px);grid-template-rows:repeat(10,32px);gap:2px;margin:10px 0}
+.cell{width:32px;height:32px;background:#cfe3ff;border:1px solid #9fbce3;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cell.occupied{background:#547aa3}
+.cell.miss{background:#eee}
+.cell.hit{background:#a83b3b}
+.boards{display:flex;gap:40px}
+#messages{margin-top:12px}
+#shipList{margin:8px 0}
+.ship-item{padding:6px;margin:4px 0;background:#fff;border:1px solid #ddd}
