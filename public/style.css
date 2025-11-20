@@ -6,6 +6,11 @@ body {
   padding: 20px;
 }
 
+h1 {
+  text-align: left;
+  size: 48px;
+}
+
 #app {
   max-width: 1000px;
   margin: 0 auto;
