@@ -6,6 +6,12 @@ body {
   padding: 20px;
 }
 
+.heading {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 h1 {
   text-align: left;
   size: 48px;
