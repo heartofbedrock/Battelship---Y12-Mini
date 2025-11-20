@@ -109,7 +109,6 @@ button {
 .boards {
   display: flex;
   gap: 40px;
-  cursor: crosshair;
 }
 
 #messages {
