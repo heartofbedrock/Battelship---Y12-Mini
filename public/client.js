@@ -18,6 +18,7 @@ const yourBoardView = document.getElementById('yourBoardView');
 const oppBoard = document.getElementById('oppBoard');
 const turnInfo = document.getElementById('turnInfo');
 const messages = document.getElementById('messages');
+const eventLog = document.getElementById('eventLog');
 
 let code = null;
 let playerId = null;
@@ -183,6 +184,7 @@ socket.on('start', ({ starter }) => {
   short('Game started');
   myTurn = (starter === socket.id);
   turnInfo.textContent = myTurn ? 'Your turn' : 'Opponent turn';
+  eventLog.classList.remove('hidden');
   renderOppBoard();
 });
 
