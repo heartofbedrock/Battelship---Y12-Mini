@@ -8,48 +8,55 @@
   </head>
   <body>
     <div id="app">
-      <div id="lobby">
-        <div class="heading">Battleship</div>
-        <label>4-digit code: <input id="code" maxlength="4" placeholder="1234" /></label>
-        <label>Name: <input id="name" placeholder="Player" /></label>
-        <div class="row">
-          <button id="create">Create</button>
-          <button id="join">Join</button>
+      <div id="main">
+        <div id="lobby">
+          <div class="heading">Battleship</div>
+          <label>4-digit code: <input id="code" maxlength="4" placeholder="1234" /></label>
+          <label>Name: <input id="name" placeholder="Player" /></label>
+          <div class="row">
+            <button class="create_botton" id="create">Create</button>
+            <button class="join_button" id="join">Join</button>
+          </div>
+          <div id="status"></div>
         </div>
-        <div id="status"></div>
+
+        <div id="placement" class="hidden">
+          <h2>Place your ships</h2>
+          <div class="controls">
+            <button id="rotate">Rotate: Horizontal</button>
+            <button id="resetBoard">Reset Board</button>
+          </div>
+          <div id="shipList"></div>
+          <div class="boards">
+            <div>
+              <h3>Your Board</h3>
+              <div id="yourBoard" class="grid"></div>
+            </div>
+          </div>
+          <div class="row">
+            <button id="ready" disabled>Ready</button>
+          </div>
+        </div>
+
+        <div id="game" class="hidden">
+          <h2>Game</h2>
+          <div id="turnInfo"></div>
+          <div class="boards">
+            <div>
+              <h3>Your Board</h3>
+              <div id="yourBoardView" class="grid"></div>
+            </div>
+            <div>
+              <h3>Opponent Board</h3>
+              <div id="oppBoard" class="grid"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div id="placement" class="hidden">
-        <h2>Place your ships</h2>
-        <div class="controls">
-          <button id="rotate">Rotate: Horizontal</button>
-        </div>
-        <div id="shipList"></div>
-        <div class="boards">
-          <div>
-            <h3>Your Board</h3>
-            <div id="yourBoard" class="grid"></div>
-          </div>
-        </div>
-        <div class="row">
-          <button id="ready" disabled>Ready</button>
-        </div>
-      </div>
-
-      <div id="game" class="hidden">
-        <h2>Game</h2>
-        <div id="turnInfo"></div>
-        <div class="boards">
-          <div>
-            <h3>Your Board</h3>
-            <div id="yourBoardView" class="grid"></div>
-          </div>
-          <div>
-            <h3>Opponent Board</h3>
-            <div id="oppBoard" class="grid"></div>
-          </div>
-        </div>
-        <div id="messages"></div>
+      <div id="eventLog" class="log-panel">
+        <h2>Event Log</h2>
+        <div id="messages" class="log-messages"></div>
       </div>
     </div>
 

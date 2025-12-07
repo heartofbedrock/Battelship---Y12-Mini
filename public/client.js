@@ -10,6 +10,7 @@ const lobby = document.getElementById('lobby');
 const placement = document.getElementById('placement');
 const game = document.getElementById('game');
 const rotateBtn = document.getElementById('rotate');
+const resetBtn = document.getElementById('resetBoard');
 const shipListEl = document.getElementById('shipList');
 const yourBoardEl = document.getElementById('yourBoard');
 const readyBtn = document.getElementById('ready');
@@ -23,7 +24,9 @@ let playerId = null;
 let myTurn = false;
 
 function short(msg){
-  const d = document.createElement('div'); d.textContent = msg; messages.appendChild(d);
+  const d = document.createElement('div');
+  d.textContent = msg;
+  messages.prepend(d);
 }
 
 createBtn.onclick = () => {
@@ -80,6 +83,7 @@ function renderShipList(){
 }
 
 rotateBtn.onclick = () => { horizontal = !horizontal; rotateBtn.textContent = 'Rotate: ' + (horizontal ? 'Horizontal' : 'Vertical'); };
+resetBtn.onclick = () => resetPlacementBoard(true);
 
 function renderYourBoard(){
   yourBoardEl.innerHTML = '';
@@ -92,6 +96,15 @@ function renderYourBoard(){
       yourBoardEl.appendChild(cell);
     }
   }
+}
+
+function resetPlacementBoard(announce = false){
+  placementBoard = makeEmptyBoard();
+  placingIndex = 0;
+  readyBtn.disabled = true;
+  renderShipList();
+  renderYourBoard();
+  if (announce) short('Board reset');
 }
 
 function tryPlace(x,y){
