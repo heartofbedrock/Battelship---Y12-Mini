@@ -19,10 +19,14 @@ const oppBoard = document.getElementById('oppBoard');
 const turnInfo = document.getElementById('turnInfo');
 const messages = document.getElementById('messages');
 const eventLog = document.getElementById('eventLog');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalMessage = document.getElementById('modalMessage');
+const modalClose = document.getElementById('modalClose');
 
 let code = null;
 let playerId = null;
 let myTurn = false;
+let modalFocusTarget = null;
 
 function short(msg){
   const d = document.createElement('div');
@@ -30,10 +34,31 @@ function short(msg){
   messages.prepend(d);
 }
 
+function showModal(message, focusEl){
+  modalMessage.textContent = message;
+  modalOverlay.classList.remove('hidden');
+  modalFocusTarget = focusEl || null;
+  modalClose.focus();
+}
+
+function hideModal(){
+  modalOverlay.classList.add('hidden');
+  if (modalFocusTarget && typeof modalFocusTarget.focus === 'function') {
+    modalFocusTarget.focus();
+  }
+  modalFocusTarget = null;
+}
+
+modalClose.onclick = hideModal;
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) hideModal();
+});
+
 createBtn.onclick = () => {
   code = (codeInput.value || '').trim();
   if (!/^[0-9]{4}$/.test(code)) return alert('Enter a 4-digit code');
-  const name = nameInput.value || 'Player';
+  const name = (nameInput.value || '').trim();
+  if (!name) return showModal('Please enter your name before creating a room.', nameInput);
   socket.emit('create', { code, name }, (res) => {
     if (res.ok) onJoined(); else alert(res.error || 'Could not create');
   });
@@ -41,7 +66,8 @@ createBtn.onclick = () => {
 joinBtn.onclick = () => {
   code = (codeInput.value || '').trim();
   if (!/^[0-9]{4}$/.test(code)) return alert('Enter a 4-digit code');
-  const name = nameInput.value || 'Player';
+  const name = (nameInput.value || '').trim();
+  if (!name) return showModal('Please enter your name before joining a room.', nameInput);
   socket.emit('join', { code, name }, (res) => {
     if (res.ok) onJoined(); else alert(res.error || 'Could not join');
   });

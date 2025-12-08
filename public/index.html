@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Battleship - Multiplayer</title>
+    <link rel="icon" type="image/png" href="/cruise.png">
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
@@ -57,6 +58,15 @@
       <div id="eventLog" class="log-panel hidden">
         <h2>Event Log</h2>
         <div id="messages" class="log-messages"></div>
+      </div>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div id="modalMessage" class="modal-message"></div>
+        <div class="row modal-actions">
+          <button id="modalClose">OK</button>
+        </div>
       </div>
     </div>
 

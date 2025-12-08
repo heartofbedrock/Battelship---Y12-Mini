@@ -19,25 +19,39 @@ function ensureRoom(code) {
   return rooms[code];
 }
 
+function leaveCurrentRoom(socket) {
+  const prevCode = socket.code;
+  if (!prevCode) return;
+  const room = rooms[prevCode];
+  if (!room) return;
+  room.players = room.players.filter((id) => id !== socket.id);
+  delete room.boards[socket.id];
+  socket.leave(prevCode);
+  io.to(prevCode).emit('roomUpdate', { players: room.players.length });
+  if (room.players.length === 0) delete rooms[prevCode];
+}
+
 io.on('connection', (socket) => {
   socket.on('create', ({ code, name }, cb) => {
+    leaveCurrentRoom(socket);
     const room = ensureRoom(code);
-    if (room.players.length >= 2) return cb && cb({ ok: false, error: 'Room full' });
+    if (!room.players.includes(socket.id) && room.players.length >= 2) return cb && cb({ ok: false, error: 'Room full' });
     socket.join(code);
     socket.code = code;
     socket.playerName = name || 'Player';
-    room.players.push(socket.id);
+    if (!room.players.includes(socket.id)) room.players.push(socket.id);
     io.to(code).emit('roomUpdate', { players: room.players.length });
     cb && cb({ ok: true, playerId: socket.id });
   });
 
   socket.on('join', ({ code, name }, cb) => {
+    leaveCurrentRoom(socket);
     const room = ensureRoom(code);
-    if (room.players.length >= 2) return cb && cb({ ok: false, error: 'Room full' });
+    if (!room.players.includes(socket.id) && room.players.length >= 2) return cb && cb({ ok: false, error: 'Room full' });
     socket.join(code);
     socket.code = code;
     socket.playerName = name || 'Player';
-    room.players.push(socket.id);
+    if (!room.players.includes(socket.id)) room.players.push(socket.id);
     io.to(code).emit('roomUpdate', { players: room.players.length });
     cb && cb({ ok: true, playerId: socket.id });
   });
